@@ -1,0 +1,82 @@
+﻿@using ProductManagement.Models
+@{
+    ViewData["Title"] = "ShowCart";
+}
+
+<h1>ShowCart</h1>
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="jumbotron bg-white border border-light rounded m-5 p-4">
+        <div class="container border border-secondary rounded mb-5">
+            <div class="row bg-dark p-2">
+                <div class="col-sm-12 my-auto">
+                    <i class='fa fa-shopping-cart text-white'></i><span class="text-white ml-3">Shopping Cart</span>
+                    <a asp-area="" asp-controller="Customer" asp-action="Index" class="btn btn-sm btn-outline-info float-right">Continue Shopping</a>
+                </div>
+            </div>
+            @if (Model.Count == 0) 
+            {
+                <h2>Your Cart is Empty...!!!</h2>
+            }
+            @foreach (var item in Model)
+            {
+                <div class="row p-3">
+                    <div class="col-sm-auto p-0">
+                        @*<img src="data:image;base64,@item.Product.Image" class="img-rounded" style="width : 100px;height: 80px;">*@
+                        <img src="~/Images/@item.Product.Image" class="img-rounded" style="width : 100px;height: 80px;" />
+                    </div>
+
+                    <div class="col-sm-5">
+                        <h5 style="color:black">@item.Product.Name</h5>
+                        <p style="color:black">
+                            @item.Product.Description
+                        </p>
+                    </div>
+                    <div class="col-sm-2 font-weight-bolder">
+                        $<span class="itemPrice" style="color:black"> @item.Product.Price</span> &nbsp; &#10005;  <span style="color:black"> @item.Count </span>
+                    </div>
+                    <div class="col-sm-3 text-center">
+                        <a href="CartItemCount?id=@item.Id&type=remove" class="btn btn-sm btn-danger" data-ajax="true" data-ajax-method="GET" data-ajax-success="AjaxSuccess1" data-ajax-failure="AjaxError1" font-weight-bold text-white" onclick="removeProduct(this)"><i class="fa fa-minus"></i></a>
+                        <a href="CartItemCount?id=@item.Id&type=add" class="btn btn-sm btn-info font-weight-bold text-white" data-ajax="true" data-ajax-method="GET" data-ajax-success="AjaxSuccess" data-ajax-failure="AjaxError" onclick="addProduct(this)"><i class="fa fa-plus"></i></a>
+                        <a href="DeleteItem?id=@item.Id" class="btn btn-sm btn-outline-danger font-weight-bold ml-3" data-ajax="true" data-ajax-method="GET" data-ajax-success="AjaxSuccess1" data-ajax-failure="AjaxError1" onclick="hideBlock(this)"><i class="fa fa-trash-o"></i></a>
+                    </div>
+                </div>
+                <hr class="mt-0" />
+            }
+            <div class="row mr-0 mt-2">
+                <div class="col-sm float-right pr-0">
+                    <div class="container-sm border border-info rounded p-2 pr-0" style="width : 60%;">
+                        <span class="text-info">Total (USD)</span>
+                        <span class="text-info float-right font-weight-bolder">$<span id="totalPrice">0.0</span></span>
+                    </div>
+                </div>
+            </div>
+            <hr class="m-0" />
+            <div class="row p-2 m-0">
+                <div class="col-sm m-0">
+                    <a href="Summary" class="btn btn-success float-right" style="width:12rem;">Summary</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <a href="/Identity/Account/Register" class="btn btn-success">Register</a>
+    <a href="/Identity/Account/Login" class="btn btn-success">Login</a>
+}
+<script>
+
+    let arr = document.getElementsByClassName("itemPrice");
+
+    var sum = 0;
+
+    for (let i = 0; i < arr.length; i++) {
+        let val = parseFloat(arr[i].innerText) * parseInt(arr[i].nextElementSibling.innerText);
+        sum = sum + val;
+    }
+    sum = Math.round(sum * 1000) / 1000;
+    document.getElementById("totalPrice").innerText = sum;
+</script>
+
+

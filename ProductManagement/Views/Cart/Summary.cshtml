@@ -1,0 +1,131 @@
+﻿@model IEnumerable<ProductManagement.Models.ShoppingCart>
+@{
+    ViewData["Title"] = "Summary";
+    double total = 0;
+}
+
+<h1>Summary</h1>
+<div class="jumbotron bg-white border border-light rounded m-5 p-4">
+    <div class="container w-75 border  border-secondary rounded mb-5">
+        <div class="row bg-dark p-2">
+
+            <div class="col-sm-12 my-auto">
+                <i class='fa fa-shopping-cart text-white'></i><span class="text-white ml-3">Order Summary</span>
+                <a href="/Cart/ShowCart" class="btn btn-sm btn-outline-info float-right">Back to Cart</a>
+            </div>
+        </div>
+        <form class="justify-content-center mt-2">
+            <div class="form-group">
+                <label for="Name">Name</label>
+                <input type="text" class="form-control " value="@User.Identity.Name" placeholder="Enter Name">
+            </div>
+            <div class="form-group">
+                <label>Phone</label>
+                <input type="text" class="form-control " @*value="@ViewBag.UserPhoneNumber"*@ placeholder="Enter Phone Number">
+            </div>
+            <div class="form-group">
+                <label>Date of Order</label>
+                <input type="text" class="form-control " value="@DateTime.Now" disabled>
+            </div>
+            <div class="form-group">
+                <label>Address</label>
+                <textarea class="form-control" placeholder="Enter Address">Address</textarea>
+            </div>
+
+
+            <ul class="list-group">
+                <li class="list-group-item active text-white">Order Summary</li>
+                @foreach (var product in Model)
+                {
+                    total = total + product.Count * product.Product.Price;
+
+                    <li class="list-group-item"> @product.Product.Name &nbsp; &#10005; @product.Count <span class="float-right font-weight-bold">$@(  product.Count * product.Product.Price)</span></li>
+                }
+                <li class="list-group-item">
+                    <span class="font-weight-bolder">Grand Total : $</span><span class="">@total</span>
+                </li>
+            </ul>
+
+            <button type="button" data-toggle="modal" data-target=".bd-example-modal-lg" class="btn btn-info btn-block m-1 mt-4 ">Place Order</button>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content w-100">
+            <div class="py-3 my-auto bg-light" style="width : 100%;">
+                <div class="row">
+                    <div class="col-12 col-sm-8 col-md-6 col-lg-4 mx-auto">
+                        <div id="pay-invoice" class="card">
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <h3 class="text-center">Pay Invoice</h3>
+                                </div>
+                                <hr>
+                                @*<form class="w-100 ">*@
+
+
+                                <div class="form-group">
+                                    <label for="cc-number" class="control-label mb-1">Card number</label>
+                                    <input id="cc-number" name="cc-number" type="tel" class="form-control cc-number identified visa" required autocomplete="off">
+                                    <span class="invalid-feedback">Enter a valid 12 to 16 digit card number</span>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="cc-exp" class="control-label mb-1">Expiration</label>
+                                            <input id="cc-exp" name="cc-exp" type="tel" class="form-control cc-exp" required placeholder="MM / YY" autocomplete="cc-exp">
+                                            <span class="invalid-feedback">Enter the expiration date</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="x_card_code" class="control-label mb-1">CVV</label>
+                                        <div class="input-group">
+                                            <input id="x_card_code" name="x_card_code" type="tel" class="form-control cc-cvc" required autocomplete="off">
+                                            <span class="invalid-feedback order-last">Enter the 3-digit code on back</span>
+                                            <div class="input-group-append">
+                                                <div class="input-group-text">
+                                                    <span class="fa fa-question-circle fa-lg" data-toggle="popover" data-container="body" data-html="true" data-title="CVV"
+                                                          data-content="<div class='text-center one-card'>The 3 digit code on back of the card..<div class='visa-mc-cvc-preview'></div></div>"
+                                                          data-trigger="hover"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="x_zip" class="control-label mb-1">Mob No</label>
+                                    <input id="x_zip" name="x_zip" type="text" class="form-control" value="" data-val="true" data-val-required="Please enter the ZIP/Postal code" autocomplete="postal-code">
+                                    <span class="help-block" data-valmsg-for="x_zip" data-valmsg-replace="true"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="x_promotion" class="control-label mb-1">OTP</label>
+                                    <input id="x_promotion" name="x_prom" type="text" class="form-control" value="" data-val="true" data-val-required="otp">
+                                    <span class="help-block" data-valmsg-for="x_promotion" data-valmsg-replace="true"></span>
+                                </div>
+
+                                @*<div>
+                                        <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
+                                            <i class="fa fa-lock fa-lg"></i>&nbsp;
+                                            <span>Pay </span>
+                                        </button>
+                                    </div>*@
+                                <div>
+                                    <a href="/Cart/ClearCartItems">
+                                        <div id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
+                                            <i class="fa fa-lock fa-lg"></i>&nbsp;
+                                            <span>Pay </span>
+                                        </div>
+                                    </a>
+                                </div>
+                                @*</form>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

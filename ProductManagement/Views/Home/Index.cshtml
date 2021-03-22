@@ -1,0 +1,131 @@
+﻿@model IEnumerable<DomainModels.Product>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+@*<style>
+
+
+
+    #landingPage {
+        background-image: url('file:///F:\DotNetBatchJan2021\WebApps\ProductManagement\ProductManagement\wwwroot\Images\bg.jpg');
+    }
+    .home-text {
+        position: absolute;
+        padding-left: 40px;
+        padding-top: 40px;
+        padding-bottom: 40px;
+        padding-right: 20px;
+        background: rgba(255,255,255,0.6);
+        box-shadow: 0 5px 25px rgba(0,0,0,0.8);
+        margin-top: 30%;
+        margin-left: 10%;
+        margin-right: 10%;
+        font-weight: 400;
+    }
+
+
+
+        .home-text h2 {
+            color: black;
+            font-size: 60px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-family: Centaur;
+        }
+
+
+
+        .home-text a {
+            margin-left: 50%;
+            transform: translate(-50%);
+            color: white;
+            background: darkblue;
+            font-size: 2em;
+            padding: 10px 20px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            display: inline-block;
+        }
+
+
+
+            .home-text a:hover {
+                background-color: darkgreen;
+            }
+</style>*@
+
+
+
+
+
+    <div class="home-area">
+        <div class="home-container">
+            <div class="col-md-12 col-lg-offset-4">
+                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <a asp-controller="Customer" asp-action="Index" asp-route-prodCode="tdx"><img class="d-block w-100" src="~/Images/IronToolCar.jpg" alt="First slide" style="height:400px;width:1300px"></a>
+                        </div>
+                        <div class="carousel-item">
+                            <a asp-controller="Customer" asp-action="Index" asp-route-prodCode="gnd"><img class="d-block w-100" src="~/Images/GameCar.jpg" alt="Second slide" style="height:400px;width:1300px"></a>
+                        </div>
+                        <div class="carousel-item">
+                            <a asp-controller="Customer" asp-action="Index" asp-route-prodCode="gnd"><img class="d-block w-100" src="~/Images/gardenCarausel.jpg" alt="Second slide" style="height:400px;width:1300px"></a>
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <div class="row">
+                <div class="col-4">
+                    <div class="card mb-4 bg-light">
+                        <div class="card-header">
+                            <h4 class="my-0 font-weight-normal">
+                                <label style="font-size: 23px;color:black">Garden tools</label>
+                            </h4>
+                        </div>
+                        <a asp-controller="Customer" asp-action="List" asp-route-prodCode="GRD"><img src="~/Images/Gardening-HAND.jpg" alt="Card Image" class="card-img-top" style="height: 200px;width:347px" /></a>
+        </div>
+                </div>
+                <div class="col-4">
+                    <div class="card mb-4 bg-light">
+                        <div class="card-header">
+                            <h4 class="my-0 font-weight-normal">
+                                <label style="font-size: 23px;color:black">Video Games</label>
+                            </h4>
+                        </div>
+                        <a asp-controller="Customer" asp-action="List" asp-route-prodCode="GMG"><img src="~/Images/VideoGameTool.jpg" alt="Card Image" class="card-img-top" style="height: 200px;width:347px" /></a>
+        </div>
+                </div>
+                <div class="col-4">
+                    <div class="card mb-4 bg-light">
+                        <div class="card-header">
+                            <h4 class="my-0 font-weight-normal">
+                                <label style="font-size: 23px;color:black">Iron Tools</label>
+                            </h4>
+                        </div>
+                        <a asp-controller="Customer" asp-action="List" asp-route-prodCode="IRT"><img src="~/Images/IronTools.jpg" alt="Card Image" class="card-img-top" style="height: 200px;width:347px" /></a>
+        </div>
+                </div>
+            </div>
+    @*<a class="btn btn-lg btn-primary" href="~/Customer/Index" role="button">View Menu</a>*@
+    @*@Html.ActionLink("View Product", "Index", "Customer", new { @class = "btn btn-success" }, new { @class = "center" })*@
+    @*<a href="/Customer/Index" style="align-content:center"><p class="btn btn-info"> View More </p></a>*@
+
+
+    
+

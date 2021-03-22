@@ -1,0 +1,98 @@
+﻿@model DomainModels.Product
+@{
+    ViewData["Title"] = "Details";
+}
+
+@using (Html.BeginForm())
+{
+
+<div class="border row" style="background-color:#ffffff">
+    <div class="col-md-12" style="background-color:#619fbf">
+        <h4 class="my-0 font-weight-normal">
+            <label style="font-size: 23px;color: white">Product Details: @Model.Name</label>
+        </h4>
+    </div>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="col-md-8" style="background-color:#619fbf">
+
+        <div class="form-group row">
+            <div class="col-md-4">
+                <label asp-for="@Model.Name" class="text-black-50 font-weight-bold">Name</label>
+            </div>
+            <div class="col-md-8">
+                <label style="color:black">@Model.Name</label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-4">
+                <label asp-for="@Model.Code" class="text-black-50 font-weight-bold">Product Code</label>
+            </div>
+            <div class="col-md-8">
+
+                <label style="color:black">@Model.Code</label>
+
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-4">
+                <label asp-for="@Model.Description" class="text-black-50 font-weight-bold">Description</label>
+            </div>
+            <div class="col-md-8">
+
+                <label style="color:black">@Model.Description</label>
+
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-4">
+                <label asp-for="@Model.Price" class="text-black-50 font-weight-bold">Price:</label>
+            </div>
+            <div class="col-md-8">
+                <label style="color:black">$@Model.Price</label>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-4">
+                <label asp-for="@Model.Available" class="text-black-50 font-weight-bold">Availability</label>
+            </div>
+            <div class="col-md-8">
+                @*<label style="color:black">@Model.Available</label>*@
+                @Html.DisplayFor(model=>model.Available)
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-4">
+                <label asp-for="@Model.Rating" class="text-black-50 font-weight-bold">Rating</label>
+            </div>
+            <div class="col-md-8">
+                @for (int i = 1; i <= Model.Rating; i++)
+                {
+                    <span class="fa fa-star checked" title="@Model.Rating"></span>}
+                @if (Model.Rating % 1 > 0)
+                {
+                    <span class="fa fa-star-half checked" title="@Model.Rating"></span>}
+                @for (var i = (Math.Ceiling(Model.Rating)); i < 5; i++)
+                {
+                    <span class="fa fa-star Emptychecked" title="@Model.Rating"></span>}
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4">
+
+                @Html.ActionLink("Back", "Index", new { Controller = "Customer" }, new { @class = "btn btn-primary" })
+                <a class="btn btn-danger" href="/Cart/AddToCart/@Model.Id" type="submit">Add To Cart</a>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-md-3 offset-1 d-none d-md-block" style="background-color:white">
+
+        <img src="~/Images/@Model.Image" height="250" width="250" asp-append-version="true" id="idofImg" />
+    </div>
+</div>
+}

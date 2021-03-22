@@ -1,0 +1,68 @@
+﻿@model IEnumerable<DomainModels.Product>
+@{
+    ViewData["Title"] = "ListOfProducts";
+}
+<div class="row">
+    <div class="col-4">
+        <div class="card mb-4" style="background-color:white">
+            <div class="card-header bg-light">
+                <h4 class="my-0 font-weight-normal">
+                    <label style="font-size: 23px;color: steelblue">Products</label>
+                </h4>
+            </div>
+            @foreach (var item in Model)
+            {
+        @*<button type="button" class="btn btn-success detailsBtn"
+                data-id=@item.Id>
+            @item.Name (@item.Code)
+        </button>*@
+               
+                <a class="btn btn-outline-info detailsBtn" data-Name="@item.Id">@item.Name (@item.Code)</a>
+            }
+        </div>
+    </div>
+</div>
+@*details*@
+<!--<div class="panel panel-primary">
+    <div class="panel-heading">
+        Product Details 
+    </div>
+    <div class="panel-body">
+        <form>
+            <div class="form-group">
+                <label for="Name">Name</label>
+                <input type="text" class="form-control" placeholder="Name" id="detailstxtName"/>
+            </div>
+            <div class="form-group">
+                <label for="Code">Code</label>
+                <input type="text" class="form-control" placeholder="Code" id="detailstxtCode" />
+            </div>
+        </form>
+    </div>
+    <div class="panel-footer">
+        <button type="button" id="btnBack" class="btn btn-success">Back</button>-->
+        @*<button type="button" id="btnCancel" class="btn btn-default">Cancel</button>*@
+    <!--</div>
+</div>
+
+
+<script>
+    var currentRow
+
+    $(document).on('click', '.detailsBtn', (event) => {
+
+        var did = $(event.target).attr('data-id')
+        $.ajax({
+            type: 'GET',
+            url: '/api/products?id=' + did,
+            success: (response) => {
+                $('#detailstxtName').val(response.Name);
+                $('#detailstxtCode').val(response.Code)
+            },
+            error: (err) => {
+                alert(err)
+                console.log(`Error occured:${err}`)
+            }
+        })
+    })
+</script>-->
